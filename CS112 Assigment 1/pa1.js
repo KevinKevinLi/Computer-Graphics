@@ -51,6 +51,7 @@ function perspective(//TODO: function inputs
         Write the code to perform perspective transformation. 
         Think about what would be the input and output to the function would be
         */
+<<<<<<< HEAD
         let f = 1.0 / Math.tan(fovy / 2);
         let nf = 1 / (near - far);
         modelData[0] = f / aspect;
@@ -69,6 +70,26 @@ function perspective(//TODO: function inputs
         modelData[13] = 0;
         modelData[14] = (2 * far * near) * nf;
         modelData[15] = 0;
+=======
+        let f = 1.0 / Math.tan(fovy / 2);
+        let nf = 1 / (near - far);
+        modelData[0] = f / aspect;
+        modelData[1] = 0;
+        modelData[2] = 0;
+        modelData[3] = 0;
+        modelData[4] = 0;
+        modelData[5] = f;
+        modelData[6] = 0;
+        modelData[7] = 0;
+        modelData[8] = 0;
+        modelData[9] = 0;
+        modelData[10] = (far + near) * nf;
+        modelData[11] = -1;
+        modelData[12] = 0;
+        modelData[13] = 0;
+        modelData[14] = (2 * far * near) * nf;
+        modelData[15] = 0;
+>>>>>>> 06d55a1a43fceba1b6c657a15c1d0dd0b4077ca7
         return modelData;
     }
     else {
@@ -90,6 +111,7 @@ function translate(//TODO: function inputs
         Write the code to perform translation transformation. 
         Think about what would be the input and output to the function would be
         */
+<<<<<<< HEAD
         let x = parameter[0], y = parameter[1], z = parameter[2];
 
         modelData[12] = modelData[0] * x + modelData[4] * y + modelData[8] * z + modelData[12];
@@ -98,6 +120,16 @@ function translate(//TODO: function inputs
         modelData[15] = modelData[3] * x + modelData[7] * y + modelData[11] * z + modelData[15];
 
         return modelData;
+=======
+        let x = parameter[0], y = parameter[1], z = parameter[2];
+
+        modelData[12] = modelData[0] * x + modelData[4] * y + modelData[8] * z + modelData[12];
+        modelData[13] = modelData[1] * x + modelData[5] * y + modelData[9] * z + modelData[13];
+        modelData[14] = modelData[2] * x + modelData[6] * y + modelData[10] * z + modelData[14];
+        modelData[15] = modelData[3] * x + modelData[7] * y + modelData[11] * z + modelData[15];
+
+        return modelData;
+>>>>>>> 06d55a1a43fceba1b6c657a15c1d0dd0b4077ca7
         
     }
     else {
@@ -121,6 +153,7 @@ function rotate(//TODO: function inputs
         Note: One of the input to this function would be axis vector around which you would rotate. 
         Think about what would be the input and output to the function would be
         */
+<<<<<<< HEAD
         let x = axis[0], y = axis[1], z = axis[2];
         let len = Math.sqrt(x * x + y * y + z * z);
         let s, c, t;
@@ -159,6 +192,46 @@ function rotate(//TODO: function inputs
         modelData[10] = a02 * b20 + a12 * b21 + a22 * b22;
         modelData[11] = a03 * b20 + a13 * b21 + a23 * b22;
 
+=======
+        let x = axis[0], y = axis[1], z = axis[2];
+        let len = Math.sqrt(x * x + y * y + z * z);
+        let s, c, t;
+        let a00, a01, a02, a03;
+        let a10, a11, a12, a13;
+        let a20, a21, a22, a23;
+        let b00, b01, b02;
+        let b10, b11, b12;
+        let b20, b21, b22;
+        if (Math.abs(len) < glMatrix.EPSILON) { return null; }
+        len = 1 / len;
+        x *= len;
+        y *= len;
+        z *= len;
+        s = Math.sin(parameter);
+        c = Math.cos(parameter);
+        t = 1 - c;
+        a00 = modelData[0]; a01 = modelData[1]; a02 = modelData[2]; a03 = modelData[3];
+        a10 = modelData[4]; a11 = modelData[5]; a12 = modelData[6]; a13 = modelData[7];
+        a20 = modelData[8]; a21 = modelData[9]; a22 = modelData[10]; a23 = modelData[11];
+        // Construct the elements of the rotation matrix
+        b00 = x * x * t + c; b01 = y * x * t + z * s; b02 = z * x * t - y * s;
+        b10 = x * y * t - z * s; b11 = y * y * t + c; b12 = z * y * t + x * s;
+        b20 = x * z * t + y * s; b21 = y * z * t - x * s; b22 = z * z * t + c;
+        // Perform rotation-specific matrix multiplication
+        modelData[0] = a00 * b00 + a10 * b01 + a20 * b02;
+        modelData[1] = a01 * b00 + a11 * b01 + a21 * b02;
+        modelData[2] = a02 * b00 + a12 * b01 + a22 * b02;
+        modelData[3] = a03 * b00 + a13 * b01 + a23 * b02;
+        modelData[4] = a00 * b10 + a10 * b11 + a20 * b12;
+        modelData[5] = a01 * b10 + a11 * b11 + a21 * b12;
+        modelData[6] = a02 * b10 + a12 * b11 + a22 * b12;
+        modelData[7] = a03 * b10 + a13 * b11 + a23 * b12;
+        modelData[8] = a00 * b20 + a10 * b21 + a20 * b22;
+        modelData[9] = a01 * b20 + a11 * b21 + a21 * b22;
+        modelData[10] = a02 * b20 + a12 * b21 + a22 * b22;
+        modelData[11] = a03 * b20 + a13 * b21 + a23 * b22;
+
+>>>>>>> 06d55a1a43fceba1b6c657a15c1d0dd0b4077ca7
         return modelData;
     }
     else {
@@ -182,6 +255,7 @@ function scale(//TODO: function inputs
         Write the code to perform scale transformation. 
         Think about what would be the input and output to the function would be
         */
+<<<<<<< HEAD
         let x = parameter[0], y = parameter[1], z = parameter[2];
         modelData[0] = modelData[0] * x;
         modelData[1] = modelData[1] * x;
@@ -199,6 +273,25 @@ function scale(//TODO: function inputs
         modelData[13] = modelData[13];
         modelData[14] = modelData[14];
         modelData[15] = modelData[15];
+=======
+        let x = parameter[0], y = parameter[1], z = parameter[2];
+        modelData[0] = modelData[0] * x;
+        modelData[1] = modelData[1] * x;
+        modelData[2] = modelData[2] * x;
+        modelData[3] = modelData[3] * x;
+        modelData[4] = modelData[4] * y;
+        modelData[5] = modelData[5] * y;
+        modelData[6] = modelData[6] * y;
+        modelData[7] = modelData[7] * y;
+        modelData[8] = modelData[8] * z;
+        modelData[9] = modelData[9] * z;
+        modelData[10] = modelData[10] * z;
+        modelData[11] = modelData[11] * z;
+        modelData[12] = modelData[12];
+        modelData[13] = modelData[13];
+        modelData[14] = modelData[14];
+        modelData[15] = modelData[15];
+>>>>>>> 06d55a1a43fceba1b6c657a15c1d0dd0b4077ca7
         return modelData;
     }
     else {
